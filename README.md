@@ -9,10 +9,10 @@ after solving the basic logic of the puzzle.
 ## Playing the game
 ---
 1. Python 3.6+ required
-2. Get [```pip```](https://www.makeuseof.com/tag/install-pip-for-python/)
-3. Run the game:
+2. Get [```pip```](https://www.makeuseof.com/tag/install-pip-for-python/) then install pygame\
+    ```$ pip install pygame```
 
-    ```$ pip install pygame```\
+3. Run the game:\
     ```$ python game.py```
 
 ## Moves
