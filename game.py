@@ -10,6 +10,7 @@ from logic import *
 
 #TODO: Add a start screen with difficulty option buttons
 #TODO: Add docstrings to functions
+#TODO: Add a hovering RULES button on start page
 difficulty = 2048
 
 def winCheck(status):
