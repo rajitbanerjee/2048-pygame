@@ -19,7 +19,7 @@ def winCheck(status):
 
         # Display win/lose status
         screen.blit(my_font.render(
-            f"YOU {status}!", 1, (255, 255, 255)), (130, 220))
+            f"YOU {status}!", 1, (255, 255, 255)), (150, 225))
         pygame.display.update()
 
         # Wait for 3 seconds before quitting game
@@ -33,7 +33,7 @@ def newGame():
     display(board)
 
     screen.blit(my_font.render(
-        f"NEW GAME!", 1, (255, 255, 255)), (130, 220))
+        f"NEW GAME!", 1, (255, 255, 255)), (130, 225))
     pygame.display.update()
     # wait for 1 second before starting over
     time.sleep(1)
@@ -109,6 +109,6 @@ if __name__ == "__main__":
 
     pygame.display.set_icon(icon)
     my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
-    
+
     # run main game loop
     main()
