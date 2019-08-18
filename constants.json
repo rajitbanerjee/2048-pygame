@@ -1,8 +1,6 @@
 {
-	"dimensions": {
-		"size": 500,
-		"padding": 5
-	},
+	"size": 500,
+	"padding": 5,
 	
 	"font": "Verdana",
 	"font_size": 35,

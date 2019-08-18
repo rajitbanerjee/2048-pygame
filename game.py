@@ -11,7 +11,7 @@ from logic import *
 
 def winCheck(status):
     if status != "PLAY":
-        size = c["dimensions"]["size"]
+        size = c["size"]
         # Fill the window with a transparent background
         s = pygame.Surface((size, size), pygame.SRCALPHA)
         s.fill((244, 208, 63, 128))
@@ -27,6 +27,7 @@ def winCheck(status):
         pygame.quit()
         sys.exit()
 
+
 def newGame():
     # clear the board to start a new game
     board = [[0] * 4 for _ in range(4)]
@@ -41,11 +42,12 @@ def newGame():
     board = fillTwoOrFour(board, iter=2)
     display(board)
     return board
-    
+
+
 def display(board):
     screen.fill(tuple(c["colour"]["background"]))
-    box = c["dimensions"]["size"] // 4
-    padding = c["dimensions"]["padding"]
+    box = c["size"] // 4
+    padding = c["padding"]
     for i in range(4):
         for j in range(4):
             colour = tuple(c["colour"][str(board[i][j])])
@@ -79,7 +81,7 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_n:
                     board = newGame()
-                    
+
                 if str(event.key) not in c["keys"]:
                     # no direction key was pressed
                     continue
@@ -101,7 +103,7 @@ if __name__ == "__main__":
     # Set up pygame
     pygame.init()
     screen = pygame.display.set_mode(
-        (c["dimensions"]["size"], c["dimensions"]["size"]))
+        (c["size"], c["size"]))
     pygame.display.set_caption("2048 by Rajit Banerjee")
 
     icon = pygame.transform.scale(
