@@ -5,7 +5,7 @@ designed by Italian web developer [Gabriele Cirulli](https://github.com/gabriele
 Inspired by the problem ["2048"](https://open.kattis.com/problems/2048) on the [Kattis Problem Archive](https://open.kattis.com/problems/)
 after solving the basic logic of the puzzle.
 
-## Playing the game
+## Getting started
 1. Python 3.6+ required
 2. Get [pip](https://www.makeuseof.com/tag/install-pip-for-python/) then install pygame\
     ```$ pip install pygame```
@@ -19,7 +19,6 @@ after solving the basic logic of the puzzle.
 3. Join the numbers and get to 2048 to win!
 
 ## Game Rules
----
 1. Every turn, a new tile will randomly appear in an empty spot on the board with a value of either 2 or 4.
 2. Tiles slide as far as possible in the chosen direction until they are stopped by either another tile or the edge of the grid. 
 3. If two tiles of the same number collide while moving, they will merge into a tile with the total value of the two tiles that collided.
