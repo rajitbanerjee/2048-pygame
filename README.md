@@ -1,25 +1,22 @@
 # 2048-pygame
-
 A pygame implementation of the popular single-player puzzle game, 2048, 
 designed by Italian web developer [Gabriele Cirulli](https://github.com/gabrielecirulli).
 
-Inspired by the problem "2048" on the [Kattis Problem Archive](https://open.kattis.com/problems/2048)
+Inspired by the problem ["2048"](https://open.kattis.com/problems/2048) on the [Kattis Problem Archive](https://open.kattis.com/problems/)
 after solving the basic logic of the puzzle.
 
 ## Playing the game
----
 1. Python 3.6+ required
-2. Get [```pip```](https://www.makeuseof.com/tag/install-pip-for-python/) then install pygame\
+2. Get [pip](https://www.makeuseof.com/tag/install-pip-for-python/) then install pygame\
     ```$ pip install pygame```
 
 3. Run the game:\
     ```$ python game.py```
 
 ## Moves
----
-1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide smoothly when a player moves them using the `four arrow keys` or `W A S D`.
-2. Press `'n'` to start a `new game`.
-3. Join the numbers and get to 2048 to `win`!
+1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide smoothly when a player moves them using the **four arrow keys** or **W A S D**.
+2. Press **'n'** to start a **new game**.
+3. Join the numbers and get to 2048 to win!
 
 ## Game Rules
 ---
