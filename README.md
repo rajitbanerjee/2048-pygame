@@ -16,7 +16,7 @@ after solving the basic logic of the puzzle.
 ## Moves
 1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide smoothly when a player moves them using the **four arrow keys** or **W A S D**.
 2. Press **'n'** to start a **new game**.
-3. Join the numbers and get to 2048 to win!
+3. Join the numbers and get to **2048** to win!
 
 ## Game Rules
 1. Every turn, a new tile will randomly appear in an empty spot on the board with a value of either 2 or 4.
