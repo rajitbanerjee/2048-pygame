@@ -7,14 +7,14 @@ after solving the basic logic of the puzzle.
 
 ## Getting started
 1. Python 3.6+ required
-2. Get [pip](https://www.makeuseof.com/tag/install-pip-for-python/) then install pygame\
+2. Get [pip](https://www.makeuseof.com/tag/install-pip-for-python/), then install pygame:\
     ```$ pip install pygame```
 
 3. Run the game:\
     ```$ python game.py```
 
 ## Moves
-1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide smoothly when a player moves them using the **four arrow keys** or **W A S D**.
+1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide when a player moves them using the **four arrow keys** or **W A S D**.
 2. Press **'n'** to start a **new game**.
 3. Join the numbers and get to **2048** to win!
 
