@@ -14,26 +14,34 @@ def winCheck(status):
         size = c["dimensions"]["size"]
         # Fill the window with a transparent background
         s = pygame.Surface((size, size), pygame.SRCALPHA)
-        s.fill((255, 255, 255, 128))
+        s.fill((244, 208, 63, 128))
         screen.blit(s, (0, 0))
 
         # Display win/lose status
         screen.blit(my_font.render(
-            f"YOU {status}!", 1, (255, 255, 255)), (size // 4, size // 2))
+            f"YOU {status}!", 1, (255, 255, 255)), (130, 220))
         pygame.display.update()
 
-        # Wait for 10 seconds before quitting game
-        time.sleep(10)
+        # Wait for 3 seconds before quitting game
+        time.sleep(3)
         pygame.quit()
         sys.exit()
 
+def newGame():
+    # clear the board to start a new game
+    board = [[0] * 4 for _ in range(4)]
+    display(board)
 
-def pr(board):
-    print("\n")
-    for row in board:
-        print(row)
+    screen.blit(my_font.render(
+        f"NEW GAME!", 1, (255, 255, 255)), (130, 220))
+    pygame.display.update()
+    # wait for 1 second before starting over
+    time.sleep(1)
 
-
+    board = fillTwoOrFour(board, iter=2)
+    display(board)
+    return board
+    
 def display(board):
     screen.fill(tuple(c["colour"]["background"]))
     box = c["dimensions"]["size"] // 4
@@ -50,19 +58,19 @@ def display(board):
                     text_colour = tuple(c["colour"]["dark"])
                 else:
                     text_colour = tuple(c["colour"]["light"])
-                screen.blit(my_font.render("{:^4}".format(
+                # display the number at the centre of the tile
+                screen.blit(my_font.render("{:>4}".format(
                     board[i][j]), 1, text_colour),
-                    (j * box + 4 * padding, i * box + 5 * padding))
+                    # 2.5 and 7 were obtained by trial and error
+                    (j * box + 2.5 * padding, i * box + 7 * padding))
     pygame.display.update()
 
 
 def main():
     status = "PLAY"
     board = newGame()
-    board = fillTwoOrFour(board, iter=2)
-    display(board)
-    pr(board)
 
+    # game loop
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -71,21 +79,17 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_n:
                     board = newGame()
-                    board = fillTwoOrFour(board, iter=2)
-                    display(board)
-                    pr(board)
-
+                    
                 if str(event.key) not in c["keys"]:
                     # no direction key was pressed
                     continue
                 else:
-                    desired_key = c["keys"][str(event.key)]
+                    key = c["keys"][str(event.key)]
 
-                new_board = move(desired_key, deepcopy(board))
+                new_board = move(key, deepcopy(board))
                 if new_board != board:
                     board = fillTwoOrFour(new_board)
                     display(board)
-                    pr(board)
                     status = checkGameStatus(board)
                     winCheck(status)
 
@@ -93,6 +97,7 @@ def main():
 if __name__ == "__main__":
     # load json data
     c = json.load(open("constants.json", "r"))
+
     # Set up pygame
     pygame.init()
     screen = pygame.display.set_mode(
@@ -104,5 +109,6 @@ if __name__ == "__main__":
 
     pygame.display.set_icon(icon)
     my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
+    
     # run main game loop
     main()

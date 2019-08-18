@@ -12,14 +12,10 @@ def move(direction, board):
         return moveRight(board)
 
 
-def newGame():
-    board = [[0] * 4 for _ in range(4)]
-    return board
-
-
 def checkGameStatus(board):
     flat_board = [cell for row in board for cell in row]
-    if 256 in flat_board:
+    # game has been won if 2048 if found
+    if 2048 in flat_board:
         return "WIN"
 
     for i in range(4):
@@ -45,7 +41,7 @@ def fillTwoOrFour(board, iter=1):
         if sum([cell for row in board for cell in row]) in (0, 2):
             board[a][b] = 2
         else:
-            board[a][b] = random.choice([2, 4])
+            board[a][b] = random.choice((2, 4))
     return board
 
 
@@ -87,7 +83,6 @@ def moveRight(board):
 
     # final shift
     shiftRight(board)
-
     return board
 
 
