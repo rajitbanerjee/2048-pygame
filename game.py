@@ -8,6 +8,9 @@ from pygame.locals import *
 
 from logic import *
 
+#TODO: Add a start screen with difficulty option buttons
+#TODO: Add docstrings to functions
+difficulty = 2048
 
 def winCheck(status):
     if status != "PLAY":
@@ -92,7 +95,7 @@ def main():
                 if new_board != board:
                     board = fillTwoOrFour(new_board)
                     display(board)
-                    status = checkGameStatus(board)
+                    status = checkGameStatus(board, difficulty)
                     winCheck(status)
 
 
