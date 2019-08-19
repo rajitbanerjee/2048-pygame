@@ -10,7 +10,7 @@ Inspired by the problem ["2048"](https://open.kattis.com/problems/2048) after so
     ```$ pip install pygame```
 
 3. Run the game:\
-    ```$ python game.py```
+    ```$ python start.py```
 
 ## Moves
 1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide when a player moves them using the **four arrow keys** or **W A S D**.
