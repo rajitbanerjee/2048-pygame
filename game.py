@@ -11,14 +11,16 @@ from logic import *
 #TODO: Add a start screen with difficulty option buttons
 #TODO: Add docstrings to functions
 #TODO: Add a hovering RULES button on start page
+#TODO: Add green colour theme option
 difficulty = 2048
+col = "green"
 
 def winCheck(status):
     if status != "PLAY":
         size = c["size"]
         # Fill the window with a transparent background
         s = pygame.Surface((size, size), pygame.SRCALPHA)
-        s.fill((244, 208, 63, 128))
+        s.fill(c["colour"][col]["over"])
         screen.blit(s, (0, 0))
 
         # Display win/lose status
@@ -49,21 +51,21 @@ def newGame():
 
 
 def display(board):
-    screen.fill(tuple(c["colour"]["background"]))
+    screen.fill(tuple(c["colour"][col]["background"]))
     box = c["size"] // 4
     padding = c["padding"]
     for i in range(4):
         for j in range(4):
-            colour = tuple(c["colour"][str(board[i][j])])
+            colour = tuple(c["colour"][col][str(board[i][j])])
             pygame.draw.rect(screen, colour, (j * box + padding,
                                               i * box + padding,
                                               box - 2 * padding,
                                               box - 2 * padding), 0)
             if board[i][j] != 0:
                 if board[i][j] in (2, 4):
-                    text_colour = tuple(c["colour"]["dark"])
+                    text_colour = tuple(c["colour"][col]["dark"])
                 else:
-                    text_colour = tuple(c["colour"]["light"])
+                    text_colour = tuple(c["colour"][col]["light"])
                 # display the number at the centre of the tile
                 screen.blit(my_font.render("{:>4}".format(
                     board[i][j]), 1, text_colour),
