@@ -2,11 +2,12 @@ import json
 import sys
 
 import pygame
-from pygame import *
 from pygame.locals import *
 
 from game import playGame
 
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
 class Button():
     def __init__(self, colour, x, y, width, height, text=""):
@@ -36,7 +37,6 @@ class Button():
 
         return False
 
-
 def drawRoundRect(surface, colour, rect, radius=0.4):
     """
     surface : destination
@@ -51,11 +51,11 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
     colour.a = 0
     pos = rect.topleft
     rect.topleft = 0, 0
-    rectangle = Surface(rect.size, SRCALPHA)
+    rectangle = pygame.Surface(rect.size, SRCALPHA)
 
-    circle = Surface([min(rect.size)*3]*2, SRCALPHA)
-    draw.ellipse(circle, (0, 0, 0), circle.get_rect(), 0)
-    circle = transform.smoothscale(circle, [int(min(rect.size)*radius)]*2)
+    circle = pygame.Surface([min(rect.size)*3]*2, SRCALPHA)
+    pygame.draw.ellipse(circle, BLACK, circle.get_rect(), 0)
+    circle = pygame.transform.smoothscale(circle, [int(min(rect.size)*radius)]*2)
 
     radius = rectangle.blit(circle, (0, 0))
     radius.bottomright = rect.bottomright
@@ -65,8 +65,8 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
     radius.bottomleft = rect.bottomleft
     rectangle.blit(circle, radius)
 
-    rectangle.fill((0, 0, 0), rect.inflate(-radius.w, 0))
-    rectangle.fill((0, 0, 0), rect.inflate(0, -radius.h))
+    rectangle.fill(BLACK, rect.inflate(-radius.w, 0))
+    rectangle.fill(BLACK, rect.inflate(0, -radius.h))
 
     rectangle.fill(colour, special_flags=BLEND_RGBA_MAX)
     rectangle.fill((255, 255, 255, alpha), special_flags=BLEND_RGBA_MIN)
@@ -77,20 +77,31 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
 def showMenu():
 
     light_theme = Button(tuple(c["colour"]["light"]["2048"]),
-                         190, 275, 45, 45, "light")
+                        215, 275, 45, 45, "light")
     dark_theme = Button(tuple(c["colour"]["dark"]["2048"]),
-                        280, 275, 45, 45, "dark")
+                        285, 275, 45, 45, "dark")
+
+    play = Button(tuple(c["colour"]["light"]["2048"]),
+                        250, 325, 45, 45, "play")
 
     difficulty = 2048
+    theme = ""
+    theme_selected = False
 
     while True:
-        screen.fill((0, 0, 0))
-
-        light_theme.draw(screen, (119, 110, 101))
-        dark_theme.draw(screen, (197, 255, 215))
+        screen.fill(BLACK)
 
         screen.blit(pygame.transform.scale(
             pygame.image.load("image/icon2.ico"), (200, 200)), (155, 50))
+
+        font = pygame.font.SysFont(c["font"], 15, bold=True)
+        text = font.render("Theme: ", 1, WHITE)
+        screen.blit(text, (140, 285))
+
+        light_theme.draw(screen, (197, 255, 215))
+        dark_theme.draw(screen, (197, 255, 215))
+        play.draw(screen, BLACK)
+
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -100,11 +111,38 @@ def showMenu():
                 pygame.quit()
                 sys.exit()
 
+            # play game
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if light_theme.isOver(pos):
-                    playGame("light", difficulty)
+                    dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
+                    light_theme.colour = tuple(c["colour"]["light"]["64"])
+                    theme = "light"
+                    theme_selected = True
+
+
                 elif dark_theme.isOver(pos):
-                    playGame("dark", difficulty)
+                    dark_theme.colour = tuple(c["colour"]["dark"]["1024"])
+                    light_theme.colour = tuple(c["colour"]["light"]["2048"])
+                    theme = "dark"
+                    theme_selected = True
+    
+                if play.isOver(pos):
+                    if theme != "":
+                        playGame(theme, difficulty)
+
+            
+            # change colour on hovering over buttons
+            if event.type == pygame.MOUSEMOTION  and not theme_selected:
+                if light_theme.isOver(pos):
+                    light_theme.colour = tuple(c["colour"]["light"]["64"])
+                if not light_theme.isOver(pos):
+                    light_theme.colour = tuple(c["colour"]["light"]["2048"])
+
+                if dark_theme.isOver(pos):
+                    dark_theme.colour = tuple(c["colour"]["dark"]["1024"])
+                if not dark_theme.isOver(pos):
+                    dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
+
 
 
 if __name__ == "__main__":
