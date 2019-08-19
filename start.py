@@ -9,6 +9,7 @@ from game import playGame
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+
 class Button():
     def __init__(self, colour, x, y, width, height, text=""):
         self.colour = colour
@@ -37,6 +38,7 @@ class Button():
 
         return False
 
+
 def drawRoundRect(surface, colour, rect, radius=0.4):
     """
     surface : destination
@@ -55,7 +57,8 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
 
     circle = pygame.Surface([min(rect.size)*3]*2, SRCALPHA)
     pygame.draw.ellipse(circle, BLACK, circle.get_rect(), 0)
-    circle = pygame.transform.smoothscale(circle, [int(min(rect.size)*radius)]*2)
+    circle = pygame.transform.smoothscale(
+        circle, [int(min(rect.size)*radius)]*2)
 
     radius = rectangle.blit(circle, (0, 0))
     radius.bottomright = rect.bottomright
@@ -75,14 +78,13 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
 
 
 def showMenu():
-
-    light_theme = Button(tuple(c["colour"]["light"]["2048"]),
-                        215, 275, 45, 45, "light")
-    dark_theme = Button(tuple(c["colour"]["dark"]["2048"]),
-                        285, 275, 45, 45, "dark")
+    light_theme = Button(
+        tuple(c["colour"]["light"]["2048"]), 215, 275, 45, 45, "light")
+    dark_theme = Button(
+        tuple(c["colour"]["dark"]["2048"]), 285, 275, 45, 45, "dark")
 
     play = Button(tuple(c["colour"]["light"]["2048"]),
-                        250, 325, 45, 45, "play")
+                  250, 325, 45, 45, "play")
 
     difficulty = 2048
     theme = ""
@@ -105,34 +107,45 @@ def showMenu():
         pygame.display.update()
 
         for event in pygame.event.get():
+            # store mouse position (coordinates)
             pos = pygame.mouse.get_pos()
 
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
 
-            # play game
+            # check if a button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
+                # select light theme
                 if light_theme.isOver(pos):
                     dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
                     light_theme.colour = tuple(c["colour"]["light"]["64"])
                     theme = "light"
                     theme_selected = True
 
-
+                # select dark theme
                 elif dark_theme.isOver(pos):
                     dark_theme.colour = tuple(c["colour"]["dark"]["1024"])
                     light_theme.colour = tuple(c["colour"]["light"]["2048"])
                     theme = "dark"
                     theme_selected = True
-    
+
+                # play game with selected theme
                 if play.isOver(pos):
                     if theme != "":
                         playGame(theme, difficulty)
 
-            
+                # reset theme choice if area outside buttons is clicked
+                if not play.isOver(pos) and \
+                    not dark_theme.isOver(pos) and \
+                        not light_theme.isOver(pos):
+                    theme = ""
+                    theme_selected = False
+                    light_theme.colour = tuple(c["colour"]["light"]["2048"])
+                    dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
+
             # change colour on hovering over buttons
-            if event.type == pygame.MOUSEMOTION  and not theme_selected:
+            if event.type == pygame.MOUSEMOTION and not theme_selected:
                 if light_theme.isOver(pos):
                     light_theme.colour = tuple(c["colour"]["light"]["64"])
                 if not light_theme.isOver(pos):
@@ -144,21 +157,24 @@ def showMenu():
                     dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
 
 
-
 if __name__ == "__main__":
     # load json data
     c = json.load(open("constants.json", "r"))
 
-    # Set up pygame
+    # set up pygame
     pygame.init()
+    # set up screen
     screen = pygame.display.set_mode(
         (c["size"], c["size"]))
     pygame.display.set_caption("2048 by Rajit Banerjee")
 
+    # display game icon in window
     icon = pygame.transform.scale(
         pygame.image.load("image/icon.ico"), (32, 32))
-
     pygame.display.set_icon(icon)
+
+    # set font according to json data specifications
     my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
 
+    # display the start screen 
     showMenu()
