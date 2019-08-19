@@ -8,10 +8,10 @@ from pygame.locals import *
 
 from logic import *
 
-# TODO: Add a start screen with difficulty option buttons
+# TODO: Add difficulty option buttons to start screen
+# TODO: Improve start screen interface
 # TODO: Add docstrings to functions
-# TODO: Add a hovering RULES button on start page
-# TODO: Add dark colour theme option
+# TODO: Add a RULES button on start page
 
 # set up pygame for main gameplay
 pygame.init()
