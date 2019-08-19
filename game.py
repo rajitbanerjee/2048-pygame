@@ -17,8 +17,9 @@ from logic import *
 pygame.init()
 c = json.load(open("constants.json", "r"))
 screen = pygame.display.set_mode(
-        (c["size"], c["size"]))
+    (c["size"], c["size"]))
 my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
+
 
 def winCheck(status, theme):
     if status != "PLAY":
@@ -86,9 +87,11 @@ def playGame(theme, difficulty):
     # game loop
     while True:
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == QUIT or \
+                    (event.type == pygame.KEYDOWN and event.key == K_q):
                 pygame.quit()
                 sys.exit()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_n:
                     board = newGame(theme)
@@ -100,6 +103,7 @@ def playGame(theme, difficulty):
                     key = c["keys"][str(event.key)]
 
                 new_board = move(key, deepcopy(board))
+                # proceed if change occurs in the board after making move
                 if new_board != board:
                     board = fillTwoOrFour(new_board)
                     display(board, theme)
