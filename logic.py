@@ -14,8 +14,8 @@ def move(direction, board):
 
 def checkGameStatus(board, max_tile):
     flat_board = [cell for row in board for cell in row]
-    # game has been won if 2048 if found
     if max_tile in flat_board:
+        # game has been won if max_tile value is found
         return "WIN"
 
     for i in range(4):
