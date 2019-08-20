@@ -11,6 +11,10 @@ BLACK = (0, 0, 0)
 
 
 class Button():
+    """
+    Class to create a new button in pygame window.
+    """
+    # initialise the button
     def __init__(self, colour, x, y, width, height, text=""):
         self.colour = colour
         self.x = x
@@ -19,8 +23,8 @@ class Button():
         self.height = height
         self.text = text
 
+    # draw the button on the screen
     def draw(self, win, text_col):
-        # draw the button on the screen
         drawRoundRect(win, self.colour, (self.x, self.y,
                                          self.width, self.height))
 
@@ -30,6 +34,7 @@ class Button():
             win.blit(text, (self.x + (self.width/2 - text.get_width()/2),
                             self.y + (self.height/2 - text.get_height()/2)))
 
+    # check if the mouse is positioned over the button
     def isOver(self, pos):
         # pos is the mouse position or a tuple of (x,y) coordinates
         if pos[0] > self.x and pos[0] < self.x + self.width:
@@ -41,10 +46,12 @@ class Button():
 
 def drawRoundRect(surface, colour, rect, radius=0.4):
     """
-    surface : destination
-    rect    : rectangle
-    colour   : rgb or rgba
-    radius  : 0 <= radius <= 1
+    Draw an antialiased rounded filled rectangle on screen
+
+    Parameters:
+        surface (pygame.Surface): destination
+        colour (tuple): RGB values for rectangle fill colour
+        radius (float): 0 <= radius <= 1
     """
 
     rect = Rect(rect)
@@ -55,7 +62,7 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
     rect.topleft = 0, 0
     rectangle = pygame.Surface(rect.size, SRCALPHA)
 
-    circle = pygame.Surface([min(rect.size)*3]*2, SRCALPHA)
+    circle = pygame.Surface([min(rect.size) * 3] * 2, SRCALPHA)
     pygame.draw.ellipse(circle, BLACK, circle.get_rect(), 0)
     circle = pygame.transform.smoothscale(
         circle, [int(min(rect.size)*radius)]*2)
@@ -74,22 +81,30 @@ def drawRoundRect(surface, colour, rect, radius=0.4):
     rectangle.fill(colour, special_flags=BLEND_RGBA_MAX)
     rectangle.fill((255, 255, 255, alpha), special_flags=BLEND_RGBA_MIN)
 
-    return surface.blit(rectangle, pos)
+    surface.blit(rectangle, pos)
 
 
 def showMenu():
+    """
+    Display the start screen
+    """
+    # create light theme button
     light_theme = Button(
         tuple(c["colour"]["light"]["2048"]), 215, 275, 45, 45, "light")
+    # create dark theme button
     dark_theme = Button(
         tuple(c["colour"]["dark"]["2048"]), 285, 275, 45, 45, "dark")
-
+    # create play button
     play = Button(tuple(c["colour"]["light"]["2048"]),
                   250, 325, 45, 45, "play")
 
+    # default difficulty
     difficulty = 2048
+    # initialise theme
     theme = ""
     theme_selected = False
 
+    # pygame loop for start screen
     while True:
         screen.fill(BLACK)
 
@@ -110,7 +125,9 @@ def showMenu():
             # store mouse position (coordinates)
             pos = pygame.mouse.get_pos()
 
-            if event.type == QUIT:
+            if event.type == QUIT or \
+                    (event.type == pygame.KEYDOWN and event.key == K_q):
+                # exit if q is pressed 
                 pygame.quit()
                 sys.exit()
 
