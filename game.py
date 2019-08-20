@@ -10,7 +10,6 @@ from logic import *
 
 # TODO: Add difficulty option buttons to start screen
 # TODO: Improve start screen interface
-# TODO: Add docstrings to functions
 # TODO: Add a RULES button on start page
 
 # set up pygame for main gameplay
