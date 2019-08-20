@@ -22,6 +22,13 @@ my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
 
 
 def winCheck(status, theme):
+    """
+    Check game status and display win/lose result.
+
+    Parameters:
+        status (str): game status
+        theme (str): game interface theme
+    """
     if status != "PLAY":
         size = c["size"]
         # Fill the window with a transparent background
@@ -41,6 +48,14 @@ def winCheck(status, theme):
 
 
 def newGame(theme):
+    """
+    Start a new game by resetting the board.
+
+    Parameters:
+        theme (str): game interface theme
+    Returns:
+        board (list): new game board
+    """
     # clear the board to start a new game
     board = [[0] * 4 for _ in range(4)]
     display(board, theme)
@@ -57,6 +72,13 @@ def newGame(theme):
 
 
 def display(board, theme):
+    """
+    Display the board 'matrix' on the game window.
+
+    Parameters:
+        board (list): game board
+        theme (str): game interface theme
+    """
     screen.fill(tuple(c["colour"][theme]["background"]))
     box = c["size"] // 4
     padding = c["padding"]
@@ -81,6 +103,13 @@ def display(board, theme):
 
 
 def playGame(theme, difficulty):
+    """
+    Main game loop function.
+
+    Parameters:
+        theme (str): game interface theme
+        difficulty (int): game difficulty, i.e., max. tile to get
+    """
     status = "PLAY"
     board = newGame(theme)
 
@@ -89,10 +118,13 @@ def playGame(theme, difficulty):
         for event in pygame.event.get():
             if event.type == QUIT or \
                     (event.type == pygame.KEYDOWN and event.key == K_q):
+                # exit if q is pressed 
                 pygame.quit()
                 sys.exit()
 
+            # a key has been pressed
             if event.type == pygame.KEYDOWN:
+                # 'n' is pressed to start a new game
                 if event.key == pygame.K_n:
                     board = newGame(theme)
 
@@ -100,12 +132,18 @@ def playGame(theme, difficulty):
                     # no direction key was pressed
                     continue
                 else:
+                    # convert the pressed key to w/a/s/d
                     key = c["keys"][str(event.key)]
 
+                # obtain new board by performing move on old board's copy
                 new_board = move(key, deepcopy(board))
+
                 # proceed if change occurs in the board after making move
                 if new_board != board:
+                    # fill 2/4 after every move
                     board = fillTwoOrFour(new_board)
                     display(board, theme)
+                    # update game status
                     status = checkGameStatus(board, difficulty)
+                    # check if the game is over
                     winCheck(status, theme)
