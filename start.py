@@ -90,13 +90,13 @@ def showMenu():
     """
     # create light theme button
     light_theme = Button(
-        tuple(c["colour"]["light"]["2048"]), 215, 275, 45, 45, "light")
+        tuple(c["colour"]["light"]["2048"]), 200, 275, 45, 45, "light")
     # create dark theme button
     dark_theme = Button(
-        tuple(c["colour"]["dark"]["2048"]), 285, 275, 45, 45, "dark")
+        tuple(c["colour"]["dark"]["2048"]), 270, 275, 45, 45, "dark")
     # create play button
     play = Button(tuple(c["colour"]["light"]["2048"]),
-                  250, 325, 45, 45, "play")
+                  235, 400, 45, 45, "play")
 
     # default difficulty
     difficulty = 2048
@@ -109,13 +109,13 @@ def showMenu():
         screen.fill(BLACK)
 
         screen.blit(pygame.transform.scale(
-            pygame.image.load("image/icon2.ico"), (200, 200)), (155, 50))
+            pygame.image.load("image/icon.ico"), (200, 200)), (155, 50))
 
         font = pygame.font.SysFont(c["font"], 15, bold=True)
         text = font.render("Theme: ", 1, WHITE)
-        screen.blit(text, (140, 285))
+        screen.blit(text, (125, 285))
 
-        light_theme.draw(screen, (197, 255, 215))
+        light_theme.draw(screen, BLACK)
         dark_theme.draw(screen, (197, 255, 215))
         play.draw(screen, BLACK)
 
@@ -141,8 +141,8 @@ def showMenu():
                     theme_selected = True
 
                 # select dark theme
-                elif dark_theme.isOver(pos):
-                    dark_theme.colour = tuple(c["colour"]["dark"]["1024"])
+                if dark_theme.isOver(pos):
+                    dark_theme.colour = tuple(c["colour"]["dark"]["64"])
                     light_theme.colour = tuple(c["colour"]["light"]["2048"])
                     theme = "dark"
                     theme_selected = True
@@ -162,16 +162,22 @@ def showMenu():
                     dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
 
             # change colour on hovering over buttons
-            if event.type == pygame.MOUSEMOTION and not theme_selected:
-                if light_theme.isOver(pos):
-                    light_theme.colour = tuple(c["colour"]["light"]["64"])
-                if not light_theme.isOver(pos):
-                    light_theme.colour = tuple(c["colour"]["light"]["2048"])
-
-                if dark_theme.isOver(pos):
-                    dark_theme.colour = tuple(c["colour"]["dark"]["1024"])
-                if not dark_theme.isOver(pos):
-                    dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
+            if event.type == pygame.MOUSEMOTION:
+                if not theme_selected:
+                    if light_theme.isOver(pos):
+                        light_theme.colour = tuple(c["colour"]["light"]["64"])
+                    else:
+                        light_theme.colour = tuple(c["colour"]["light"]["2048"])
+                    
+                    if dark_theme.isOver(pos):
+                        dark_theme.colour = tuple(c["colour"]["dark"]["64"])
+                    else:
+                        dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
+                
+                if play.isOver(pos):
+                    play.colour = tuple(c["colour"]["light"]["64"])
+                else:
+                    play.colour = tuple(c["colour"]["light"]["2048"])
 
 
 if __name__ == "__main__":
