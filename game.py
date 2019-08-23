@@ -8,7 +8,6 @@ from pygame.locals import *
 
 from logic import *
 
-# TODO: Add difficulty option buttons to start screen
 # TODO: Add a RULES button on start page
 
 # set up pygame for main gameplay
