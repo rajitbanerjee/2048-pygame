@@ -17,15 +17,21 @@ c = json.load(open("constants.json", "r"))
 screen = pygame.display.set_mode(
     (c["size"], c["size"]))
 my_font = pygame.font.SysFont(c["font"], c["font_size"], bold=True)
+WHITE = (255, 255, 255)
 
 
-def winCheck(status, theme):
+def winCheck(board, status, theme, text_col):
     """
     Check game status and display win/lose result.
 
     Parameters:
+        board (list): game board
         status (str): game status
         theme (str): game interface theme
+        text_col (tuple): text colour
+    Returns:
+        board (list): updated game board
+        status (str): game status
     """
     if status != "PLAY":
         size = c["size"]
@@ -35,22 +41,38 @@ def winCheck(status, theme):
         screen.blit(s, (0, 0))
 
         # Display win/lose status
-        screen.blit(my_font.render(
-            f"YOU {status}!", 1, (255, 255, 255)), (150, 225))
+        if status == "WIN":
+            msg = "YOU WIN!"
+        else:
+            msg = "GAME OVER!"
+
+        screen.blit(my_font.render(msg, 1, text_col), (140, 180))
+        # Ask user to play again
+        screen.blit(my_font.render("Play again? (y/ n)", 1, text_col), (80, 255))
+
         pygame.display.update()
 
-        # Wait for 1 second before quitting game
-        time.sleep(1)
-        pygame.quit()
-        sys.exit()
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT or \
+                        (event.type == pygame.KEYDOWN and event.key == K_n):
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.KEYDOWN and event.key == K_y:
+                    # 'y' is pressed to start a new game
+                    board = newGame(theme, text_col)
+                    return (board, "PLAY")
+    return (board, status)
 
 
-def newGame(theme):
+def newGame(theme, text_col):
     """
     Start a new game by resetting the board.
 
     Parameters:
         theme (str): game interface theme
+        text_col (tuple): text colour
     Returns:
         board (list): new game board
     """
@@ -58,8 +80,7 @@ def newGame(theme):
     board = [[0] * 4 for _ in range(4)]
     display(board, theme)
 
-    screen.blit(my_font.render(
-        f"NEW GAME!", 1, (255, 255, 255)), (130, 225))
+    screen.blit(my_font.render("NEW GAME!", 1, text_col), (130, 225))
     pygame.display.update()
     # wait for 1 second before starting over
     time.sleep(1)
@@ -141,14 +162,18 @@ def playGame(theme, difficulty):
         difficulty (int): game difficulty, i.e., max. tile to get
     """
     status = "PLAY"
-    board = newGame(theme)
+    if theme == "light":
+        text_col = tuple(c["colour"][theme]["dark"])
+    else:
+        text_col = WHITE
+    board = newGame(theme, text_col)
 
     # game loop
     while True:
         for event in pygame.event.get():
             if event.type == QUIT or \
                     (event.type == pygame.KEYDOWN and event.key == K_q):
-                # exit if q is pressed 
+                # exit if q is pressed
                 pygame.quit()
                 sys.exit()
 
@@ -156,8 +181,8 @@ def playGame(theme, difficulty):
             if event.type == pygame.KEYDOWN:
                 # 'n' is pressed to start a new game
                 if event.key == pygame.K_n:
-                    board = newGame(theme)
-
+                    board = restart(board, theme, text_col)
+            
                 if str(event.key) not in c["keys"]:
                     # no direction key was pressed
                     continue
@@ -176,4 +201,4 @@ def playGame(theme, difficulty):
                     # update game status
                     status = checkGameStatus(board, difficulty)
                     # check if the game is over
-                    winCheck(status, theme)
+                    (board, status) = winCheck(board, status, theme, text_col)
