@@ -109,8 +109,8 @@ def showMenu():
                   340, 330, 45, 45, "256")
 
     # default difficulty
-    difficulty = 2048
-    diff_selected = True
+    difficulty = 0
+    diff_selected = False
     
     # create play button
     play = Button(tuple(c["colour"]["light"]["2048"]),
@@ -206,7 +206,7 @@ def showMenu():
 
                 # play game with selected theme
                 if play.isOver(pos):
-                    if theme != "":
+                    if theme != "" and difficulty != 0:
                         playGame(theme, difficulty)
 
                 # reset theme & diff choice if area outside buttons is clicked
