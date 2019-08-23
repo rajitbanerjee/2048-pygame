@@ -14,7 +14,7 @@ Inspired by the problem ["2048"](https://open.kattis.com/problems/2048) after so
 
 ## Moves
 1. 2048 is played on a gray 4×4 grid, with numbered tiles that slide when a player moves them using the **four arrow keys** or **W A S D**.
-2. Press **'n'** to start a **new game**.
+2. Press **'n'** to **restart** the game.
 3. Join the numbers and get to **2048** to win!
 
 ## Game Rules
