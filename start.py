@@ -173,6 +173,7 @@ def showMenu():
                     theme_selected = True
                 
                 if _2048.isOver(pos):
+                    _2048.colour = tuple(c["colour"]["light"]["64"])
                     _1024.colour = tuple(c["colour"]["light"]["2048"])
                     _512.colour = tuple(c["colour"]["light"]["2048"])
                     _256.colour = tuple(c["colour"]["light"]["2048"])
@@ -180,6 +181,7 @@ def showMenu():
                     diff_selected = True
                 
                 if _1024.isOver(pos):
+                    _1024.colour = tuple(c["colour"]["light"]["64"])
                     _2048.colour = tuple(c["colour"]["light"]["2048"])
                     _512.colour = tuple(c["colour"]["light"]["2048"])
                     _256.colour = tuple(c["colour"]["light"]["2048"])
@@ -187,6 +189,7 @@ def showMenu():
                     diff_selected = True
                 
                 if _512.isOver(pos):
+                    _512.colour = tuple(c["colour"]["light"]["64"])
                     _1024.colour = tuple(c["colour"]["light"]["2048"])
                     _2048.colour = tuple(c["colour"]["light"]["2048"])
                     _256.colour = tuple(c["colour"]["light"]["2048"])
@@ -194,6 +197,7 @@ def showMenu():
                     diff_selected = True
                 
                 if _256.isOver(pos):
+                    _256.colour = tuple(c["colour"]["light"]["64"])
                     _1024.colour = tuple(c["colour"]["light"]["2048"])
                     _512.colour = tuple(c["colour"]["light"]["2048"])
                     _2048.colour = tuple(c["colour"]["light"]["2048"])
@@ -213,7 +217,7 @@ def showMenu():
                     not _1024.isOver(pos) and \
                     not _512.isOver(pos) and \
                     not _256.isOver(pos):
-                    
+
                     theme = ""
                     theme_selected = False
                     diff_selected = False
@@ -236,7 +240,6 @@ def showMenu():
                     
                     if dark_theme.isOver(pos):
                         dark_theme.colour = tuple(c["colour"]["dark"]["background"])
-
                     else:
                         dark_theme.colour = tuple(c["colour"]["dark"]["2048"])
                 

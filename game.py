@@ -47,7 +47,8 @@ def winCheck(board, status, theme, text_col):
 
         screen.blit(my_font.render(msg, 1, text_col), (140, 180))
         # Ask user to play again
-        screen.blit(my_font.render("Play again? (y/ n)", 1, text_col), (80, 255))
+        screen.blit(my_font.render(
+            "Play again? (y/ n)", 1, text_col), (80, 255))
 
         pygame.display.update()
 
@@ -88,6 +89,7 @@ def newGame(theme, text_col):
     display(board, theme)
     return board
 
+
 def restart(board, theme, text_col):
     """
     Ask user to restart the game if 'n' key is pressed.
@@ -98,10 +100,9 @@ def restart(board, theme, text_col):
         text_col (tuple): text colour
     Returns:
         board (list): new game board
-    """    
-    size = c["size"]
+    """
     # Fill the window with a transparent background
-    s = pygame.Surface((size, size), pygame.SRCALPHA)
+    s = pygame.Surface((c["size"], c["size"]), pygame.SRCALPHA)
     s.fill(c["colour"][theme]["over"])
     screen.blit(s, (0, 0))
 
@@ -118,7 +119,6 @@ def restart(board, theme, text_col):
             if event.type == pygame.KEYDOWN and event.key == K_y:
                 board = newGame(theme, text_col)
                 return board
-
 
 
 def display(board, theme):
@@ -178,10 +178,10 @@ def playGame(theme, difficulty):
 
             # a key has been pressed
             if event.type == pygame.KEYDOWN:
-                # 'n' is pressed to start a new game
+                # 'n' is pressed to restart the game
                 if event.key == pygame.K_n:
                     board = restart(board, theme, text_col)
-            
+
                 if str(event.key) not in c["keys"]:
                     # no direction key was pressed
                     continue
