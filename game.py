@@ -68,6 +68,38 @@ def newGame(theme):
     display(board, theme)
     return board
 
+def restart(board, theme, text_col):
+    """
+    Ask user to restart the game if 'n' key is pressed.
+
+    Parameters:
+        board (list): game board
+        theme (str): game interface theme
+        text_col (tuple): text colour
+    Returns:
+        board (list): new game board
+    """    
+    size = c["size"]
+    # Fill the window with a transparent background
+    s = pygame.Surface((size, size), pygame.SRCALPHA)
+    s.fill(c["colour"][theme]["over"])
+    screen.blit(s, (0, 0))
+
+    screen.blit(my_font.render("RESTART? (y / n)", 1, text_col), (85, 225))
+    pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT or \
+                    (event.type == pygame.KEYDOWN and event.key == K_n):
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN and event.key == K_y:
+                board = newGame(theme, text_col)
+                return board
+
+
 
 def display(board, theme):
     """
