@@ -9,6 +9,7 @@ from pygame.locals import *
 from logic import *
 
 # TODO: Add a RULES button on start page
+# TODO: Add score keeping
 
 # set up pygame for main gameplay
 pygame.init()
