@@ -28,7 +28,8 @@ def checkGameStatus(board, max_tile=2048):
     Parameters:
         board (list): game board
         max_tile (int): tile number required to win, default = 2048
-
+    Returns:
+        (str): game status WIN/LOSE/PLAY
     """
     flat_board = [cell for row in board for cell in row]
     if max_tile in flat_board:
@@ -209,7 +210,7 @@ def rotateRight(board):
     Parameters:
         board (list): game board
     Returns:
-        b (list): new game board after rotation
+        (list): new game board after rotation
     """
     b = rotateLeft(board)
     b = rotateLeft(b)

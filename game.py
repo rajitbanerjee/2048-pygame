@@ -161,14 +161,16 @@ def playGame(theme, difficulty):
         theme (str): game interface theme
         difficulty (int): game difficulty, i.e., max. tile to get
     """
+    # initialise game status
     status = "PLAY"
+    # set text colour according to theme
     if theme == "light":
         text_col = tuple(c["colour"][theme]["dark"])
     else:
         text_col = WHITE
     board = newGame(theme, text_col)
 
-    # game loop
+    # main game loop
     while True:
         for event in pygame.event.get():
             if event.type == QUIT or \
