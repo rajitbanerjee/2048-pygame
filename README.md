@@ -4,7 +4,7 @@ designed by Italian web developer [Gabriele Cirulli](https://github.com/gabriele
 
 Inspired by the problem ["2048"](https://open.kattis.com/problems/2048) after solving the basic logic of the puzzle on the [Kattis Problem Archive](https://open.kattis.com/problems/).
 
-## Getting started
+## Getting Started
 1. Get Python 3.x and clone this repository
 2. Get [pip](https://www.makeuseof.com/tag/install-pip-for-python/), then install pygame:\
     ```$ pip install pygame```
