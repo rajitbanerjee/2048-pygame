@@ -193,7 +193,7 @@ def showMenu():
                     _1024.colour = tuple(c["colour"]["light"]["2048"])
                     _2048.colour = tuple(c["colour"]["light"]["2048"])
                     _256.colour = tuple(c["colour"]["light"]["2048"])
-                    difficulty = 1024
+                    difficulty = 512
                     diff_selected = True
                 
                 if _256.isOver(pos):
