@@ -121,7 +121,7 @@ def showMenu():
         screen.fill(BLACK)
 
         screen.blit(pygame.transform.scale(
-            pygame.image.load("image/icon.ico"), (200, 200)), (155, 50))
+            pygame.image.load("images/icon.ico"), (200, 200)), (155, 50))
 
         font = pygame.font.SysFont(c["font"], 15, bold=True)
 
@@ -283,7 +283,7 @@ if __name__ == "__main__":
 
     # display game icon in window
     icon = pygame.transform.scale(
-        pygame.image.load("image/icon.ico"), (32, 32))
+        pygame.image.load("images/icon.ico"), (32, 32))
     pygame.display.set_icon(icon)
 
     # set font according to json data specifications
