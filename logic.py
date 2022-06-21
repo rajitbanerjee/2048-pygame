@@ -148,7 +148,7 @@ def moveDown(board):
         board (list): updated game board
     """
     board = rotateLeft(board)
-    board = moveLeft(board)
+    board = moveRight(board)
     shiftRight(board)
     board = rotateRight(board)
     return board
